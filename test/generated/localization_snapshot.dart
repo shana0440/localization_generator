@@ -90,7 +90,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
   bool isSupported(Locale locale) => _isSupported(locale);
 
   @override
-  bool shouldReload(GeneratedLocalizationsDelegate old) => false;
+  bool shouldReload(GeneratedLocalizationsDelegate old) => old.locale != this.locale;
 
   ///
   /// Internal method to resolve a locale from a list of locales.

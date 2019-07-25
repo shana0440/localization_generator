@@ -11,8 +11,10 @@ import 'package:flutter/material.dart';
 class Localized implements WidgetsLocalizations {
   const Localized();
 
+  static newDelegate(Locale locale) => GeneratedLocalizationsDelegate(locale);
+
   static const GeneratedLocalizationsDelegate delegate =
-    GeneratedLocalizationsDelegate();
+    GeneratedLocalizationsDelegate(null);
 
   static Localized of(BuildContext context) => Localizations.of<Localized>(context, Localized);
 
@@ -40,7 +42,10 @@ class $zh extends Localized {
 
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
-  const GeneratedLocalizationsDelegate();
+
+  final Locale locale;
+
+  const GeneratedLocalizationsDelegate(this.locale);
 
   List<Locale> get supportedLocales {
     return const <Locale>[
@@ -49,7 +54,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
     ];
   }
 
-  LocaleListResolutionCallback listResolution({Locale fallback, bool withCountry = true}) {
+  LocaleListResolutionCallback listResolution({Locale fallback}) {
     return (List<Locale> locales, Iterable<Locale> supported) {
       if (locales == null || locales.isEmpty) {
         return fallback ?? supported.first;
@@ -59,7 +64,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
     };
   }
 
-  LocaleResolutionCallback resolution({Locale fallback, bool withCountry = true}) {
+  LocaleResolutionCallback resolution({Locale fallback}) {
     return (Locale locale, Iterable<Locale> supported) {
       return _resolve(locale, fallback, supported);
     };
@@ -67,7 +72,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
 
   @override
   Future<Localized> load(Locale locale) {
-    final String lang = getLang(locale);
+    final String lang = getLang(this.locale ?? locale);
     if (lang != null) {
       switch (lang) {
         case "en":

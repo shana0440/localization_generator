@@ -12,8 +12,10 @@ import 'package:flutter/material.dart';
 class Localized implements WidgetsLocalizations {
   const Localized();
 
+  static newDelegate(Locale locale) => GeneratedLocalizationsDelegate(locale);
+
   static const GeneratedLocalizationsDelegate delegate =
-    GeneratedLocalizationsDelegate();
+    GeneratedLocalizationsDelegate(null);
 
   static Localized of(BuildContext context) => Localizations.of<Localized>(context, Localized);
 
@@ -28,7 +30,10 @@ class Localized implements WidgetsLocalizations {
 {OtherLocalizedClasses}
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
-  const GeneratedLocalizationsDelegate();
+
+  final Locale locale;
+
+  const GeneratedLocalizationsDelegate(this.locale);
 
   List<Locale> get supportedLocales {
     return const <Locale>[
@@ -54,7 +59,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
 
   @override
   Future<Localized> load(Locale locale) {
-    final String lang = getLang(locale);
+    final String lang = getLang(this.locale ?? locale);
     if (lang != null) {
       switch (lang) {
 {LocalizedGenerateFactory}

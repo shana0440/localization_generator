@@ -36,7 +36,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
     ];
   }
 
-  LocaleListResolutionCallback listResolution({Locale fallback, bool withCountry = true}) {
+  LocaleListResolutionCallback listResolution({Locale fallback}) {
     return (List<Locale> locales, Iterable<Locale> supported) {
       if (locales == null || locales.isEmpty) {
         return fallback ?? supported.first;
@@ -46,7 +46,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
     };
   }
 
-  LocaleResolutionCallback resolution({Locale fallback, bool withCountry = true}) {
+  LocaleResolutionCallback resolution({Locale fallback}) {
     return (Locale locale, Iterable<Locale> supported) {
       return _resolve(locale, fallback, supported);
     };

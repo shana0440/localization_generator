@@ -21,11 +21,4 @@ void main() {
   test('Test loader throw error when folder do not exists', () {
     expect(() => JSONLoader('some folder'), throwsException);
   });
-
-  test('Test loader throw error when folder do not exists', () {
-    String testingFolder = Directory.current.path + '/wrong_i18n';
-    final loader = JSONLoader(testingFolder);
-    loader.onLoaded((filename, json) {});
-    expect(() => loader.load(), throwsException);
-  });
 }

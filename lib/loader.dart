@@ -1,7 +1,7 @@
 library localization_generator;
 
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:path/path.dart';
 
@@ -26,7 +26,10 @@ class JSONLoader {
 
   void load() {
     if (this.onLoadedListener is OnJSONLoadedListener) {
-      var files = this.input.listSync(recursive: false);
+      final files = this
+          .input
+          .listSync(recursive: false)
+          .where((it) => it.path.endsWith(".json"));
       for (var file in files) {
         var content = (file as File).readAsStringSync();
         var json = jsonDecode(content);

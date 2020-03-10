@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'i18n/localization.dart';
 
 void main() => runApp(MyApp());
 
@@ -6,11 +9,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      onGenerateTitle: (context) {
+        return Localized.of(context).Title;
+      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      localizationsDelegates: [
+        Localized.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: Localized.delegate.supportedLocales,
+      home: Builder(builder: (context) {
+        return MyHomePage(title: Localized.of(context).Home);
+      }),
     );
   }
 }
@@ -35,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print(Localizations.localeOf(context));
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -44,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              Localized.of(context).CounterDescription,
             ),
             Text(
               '$_counter',

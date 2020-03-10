@@ -8,7 +8,7 @@ void main() {
   test('Test loader can load the json file', () {
     String testingFolder = Directory.current.path + '/i18n';
     final loader = JSONLoader(testingFolder);
-    const expectedFiles = ['en.json', 'zh.json'];
+    const expectedFiles = ['en_US.json', 'zh_Hant.json'];
     var filesCount = 0;
     loader.onLoaded((filename, json) {
       expect(expectedFiles.contains(filename), true);

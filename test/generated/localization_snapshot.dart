@@ -28,12 +28,12 @@ class Localized implements WidgetsLocalizations {
   String get PackageDescription => "Use to generate localization code from json file";
 }
 
-class $en extends Localized {
-  const $en();
+class $enUS extends Localized {
+  const $enUS();
 }
 
-class $zh extends Localized {
-  const $zh();
+class $zhHant extends Localized {
+  const $zhHant();
 
   @override
   TextDirection get textDirection => TextDirection.ltr;
@@ -50,8 +50,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale("en", ""),
-      Locale("zh", ""),
+      Locale("en", "US"),
+      Locale("zh", "Hant"),
     ];
   }
 
@@ -76,10 +76,10 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
     final String lang = getLang(this.locale ?? locale);
     if (lang != null) {
       switch (lang) {
-        case "en":
-          return SynchronousFuture<Localized>(const $en());
-        case "zh":
-          return SynchronousFuture<Localized>(const $zh());
+        case "en_US":
+          return SynchronousFuture<Localized>(const $enUS());
+        case "zh_Hant":
+          return SynchronousFuture<Localized>(const $zhHant());
         default:
         // NO-OP.
       }

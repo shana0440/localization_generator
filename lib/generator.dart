@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:localization_generator/locale.dart';
+
 import './template.dart';
 
 class Generator {
@@ -9,10 +11,10 @@ class Generator {
     this.output = Directory(output);
   }
 
-  Map<String, Map> localizations = Map();
+  Map<Locale, Map> localizations = Map();
 
   void load(String locale, Map json) {
-    localizations[locale] = json;
+    localizations[Locale.fromString(locale)] = json;
   }
 
   void generate() {
@@ -32,10 +34,8 @@ class Generator {
   }
 
   String replaceSupportedLanguages(String template) {
-    var supportedLanguages = this
-        .localizations
-        .keys
-        .map((locale) => indent(6, 'Locale("$locale", ""),'));
+    var supportedLanguages = this.localizations.keys.map((locale) => indent(
+        6, 'Locale("${locale.languageCode}", "${locale.countryCode}"),'));
     return template.replaceFirst(
       '{SupportedLanguages}',
       supportedLanguages.join('\n'),
@@ -44,8 +44,11 @@ class Generator {
 
   String replaceLocalizedGenerateFactory(String template) {
     var supportedLanguages = this.localizations.keys.map((locale) =>
-        indent(8, 'case "$locale":\n') +
-        indent(10, "return SynchronousFuture<Localized>(const \$$locale());"));
+        indent(8, 'case "${locale.toCase}":\n') +
+        indent(
+          10,
+          "return SynchronousFuture<Localized>(const \$${locale.toClassName}());",
+        ));
     return template.replaceFirst(
       '{LocalizedGenerateFactory}',
       supportedLanguages.join('\n'),
@@ -59,8 +62,8 @@ class Generator {
     return template
         .replaceFirst('{FirstLocalizedString}', localizedStrings)
         .replaceFirst('{FirstLocalizedClass}', '''
-class \$$first extends Localized {
-  const \$$first();
+class \$${first.toClassName} extends Localized {
+  const \$${first.toClassName}();
 }''');
   }
 
@@ -69,8 +72,8 @@ class \$$first extends Localized {
       var localized = this.localizations[key];
       var localizedStrings = generateLocalizedStrings(localized);
       return '''
-class \$$key extends Localized {
-  const \$$key();
+class \$${key.toClassName} extends Localized {
+  const \$${key.toClassName}();
 
   @override
   TextDirection get textDirection => TextDirection.ltr;

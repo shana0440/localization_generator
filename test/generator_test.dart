@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:localization_generator/generator.dart';
 
 void main() {
@@ -21,10 +20,12 @@ void main() {
           "PackageDescription": "從json檔案產出多國語系的程式"
       }
       ''');
-    generator.load('en', enJSON);
-    generator.load('zh', zhJSON);
+    generator.load('en_US', enJSON);
+    generator.load('zh_Hant', zhJSON);
     generator.generate();
-    expect(File('./generated/localization.dart').readAsStringSync(),
-        File('./generated/localization_snapshot.dart').readAsStringSync());
+    expect(
+      File('./generated/localization.dart').readAsStringSync(),
+      File('./generated/localization_snapshot.dart').readAsStringSync(),
+    );
   });
 }

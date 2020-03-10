@@ -5,7 +5,7 @@ author: kwguo <shana0440@gmail.com>
 homepage: https://github.com/shana0440/localization_generator
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:

@@ -10,11 +10,10 @@ typedef OnJSONLoadedListener = Function(String filename, dynamic json);
 class LoadDirectoryError implements Exception {
   final String message;
 
-  LoadDirectoryError({ this.message });
+  LoadDirectoryError({this.message});
 }
 
 class JSONLoader {
-
   Directory input;
   OnJSONLoadedListener onLoadedListener;
 

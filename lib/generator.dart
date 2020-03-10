@@ -32,22 +32,22 @@ class Generator {
   }
 
   String replaceSupportedLanguages(String template) {
-    var supportedLanguages = this.localizations.keys
-      .map((locale) => indent(6, 'Locale("$locale", ""),'));
+    var supportedLanguages = this
+        .localizations
+        .keys
+        .map((locale) => indent(6, 'Locale("$locale", ""),'));
     return template.replaceFirst(
-      '{SupportedLanguages}', 
+      '{SupportedLanguages}',
       supportedLanguages.join('\n'),
     );
   }
 
   String replaceLocalizedGenerateFactory(String template) {
-    var supportedLanguages = this.localizations.keys
-      .map((locale) => 
-        indent(8, 'case "$locale":\n') + 
-        indent(10, "return SynchronousFuture<Localized>(const \$$locale());")
-      );
+    var supportedLanguages = this.localizations.keys.map((locale) =>
+        indent(8, 'case "$locale":\n') +
+        indent(10, "return SynchronousFuture<Localized>(const \$$locale());"));
     return template.replaceFirst(
-      '{LocalizedGenerateFactory}', 
+      '{LocalizedGenerateFactory}',
       supportedLanguages.join('\n'),
     );
   }
@@ -56,8 +56,9 @@ class Generator {
     var first = this.localizations.keys.first;
     var localized = this.localizations[first];
     var localizedStrings = generateLocalizedStrings(localized);
-    return template.replaceFirst('{FisrtLocalizedString}', localizedStrings)
-      .replaceFirst('{FirstLocalizedClass}', '''
+    return template
+        .replaceFirst('{FirstLocalizedString}', localizedStrings)
+        .replaceFirst('{FirstLocalizedClass}', '''
 class \$$first extends Localized {
   const \$$first();
 }''');
@@ -84,8 +85,14 @@ $localizedStrings
 
   String generateLocalizedStrings(Map json) {
     return json
-      .map((key, value) => MapEntry(key, indent(2, 'String get $key => "$value";')))
-      .values.join('\n');
+        .map(
+          (key, value) => MapEntry(
+            key,
+            indent(2, 'String get $key => "$value";'),
+          ),
+        )
+        .values
+        .join('\n');
   }
 
   String indent(int number, String str) {

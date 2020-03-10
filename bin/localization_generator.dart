@@ -6,17 +6,18 @@ import 'package:path/path.dart';
 import 'package:localization_generator/generator.dart';
 import 'package:localization_generator/loader.dart';
 
-
 main(List<String> args) {
   var output = "";
   var input = "";
 
   var parser = ArgParser();
-  parser.addOption('output', 
+  parser.addOption(
+    'output',
     help: 'generate localization file to output folder',
     callback: (value) => output = value,
   );
-  parser.addOption('input', 
+  parser.addOption(
+    'input',
     help: 'localized json file folder',
     callback: (value) => input = value,
   );

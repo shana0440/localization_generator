@@ -14,9 +14,12 @@ class Localized implements WidgetsLocalizations {
   static newDelegate(Locale locale) => GeneratedLocalizationsDelegate(locale);
 
   static const GeneratedLocalizationsDelegate delegate =
-    GeneratedLocalizationsDelegate(null);
+      GeneratedLocalizationsDelegate(null);
 
-  static Localized of(BuildContext context) => Localizations.of<Localized>(context, Localized);
+  static Localized of(BuildContext context) => Localizations.of<Localized>(
+        context,
+        Localized,
+      );
 
   @override
   TextDirection get textDirection => TextDirection.ltr;
@@ -40,9 +43,7 @@ class $zh extends Localized {
   String get PackageDescription => "從json檔案產出多國語系的程式";
 }
 
-
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
-
   final Locale locale;
 
   const GeneratedLocalizationsDelegate(this.locale);
@@ -80,7 +81,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
         case "zh":
           return SynchronousFuture<Localized>(const $zh());
         default:
-          // NO-OP.
+        // NO-OP.
       }
     }
     return SynchronousFuture<Localized>(const Localized());
@@ -90,7 +91,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
   bool isSupported(Locale locale) => _isSupported(locale);
 
   @override
-  bool shouldReload(GeneratedLocalizationsDelegate old) => old.locale != this.locale;
+  bool shouldReload(GeneratedLocalizationsDelegate old) =>
+      old.locale != this.locale;
 
   ///
   /// Internal method to resolve a locale from a list of locales.
@@ -123,7 +125,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
     }
 
     for (Locale supportedLocale in supportedLocales) {
-      if (supportedLocale.countryCode == null || supportedLocale.countryCode.isEmpty) {
+      if (supportedLocale.countryCode == null ||
+          supportedLocale.countryCode.isEmpty) {
         if (supportedLocale.languageCode == locale.languageCode) {
           return true;
         }
@@ -134,7 +137,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
 }
 
 String getLang(Locale l) => l == null
-  ? null
-  : l.countryCode != null && l.countryCode.isEmpty
-    ? l.languageCode
-    : l.toString();
+    ? null
+    : l.countryCode != null && l.countryCode.isEmpty
+        ? l.languageCode
+        : l.toString();

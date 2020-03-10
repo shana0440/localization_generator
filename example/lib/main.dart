@@ -58,11 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              Localized.of(context).CounterDescription,
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+              Localized.of(context).CounterDescription('$_counter'),
             ),
           ],
         ),

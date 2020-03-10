@@ -26,7 +26,7 @@ class Localized implements WidgetsLocalizations {
 
   String get Title => "Localization Demo";
   String get Home => "Home";
-  String get CounterDescription => "You have pushed the button this many times:";
+  String CounterDescription(String count) => "You have pushed the button this many times: $count";
 }
 
 class $enUS extends Localized {
@@ -42,7 +42,7 @@ class $zhHans extends Localized {
   @override
   String get Title => "测试";
   String get Home => "首页";
-  String get CounterDescription => "你按了按钮这么多下:";
+  String CounterDescription(String count) => "你按了按钮 $count 下:";
 }
 
 class $zhHant extends Localized {
@@ -54,7 +54,7 @@ class $zhHant extends Localized {
   @override
   String get Title => "測試";
   String get Home => "首頁";
-  String get CounterDescription => "你按了按鈕這麼多下:";
+  String CounterDescription(String count) => "你按了按鈕 $count 下:";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {

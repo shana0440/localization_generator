@@ -1,5 +1,5 @@
 {
     "Title": "Localization Demo",
     "Home": "Home",
-    "CounterDescription": "You have pushed the button this many times:"
+    "CounterDescription": "You have pushed the button this many times: {{count}}"
 }

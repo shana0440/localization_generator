@@ -35,7 +35,9 @@ class Generator {
 
   String replaceSupportedLanguages(String template) {
     var supportedLanguages = this.localizations.keys.map((locale) => indent(
-        6, 'Locale("${locale.languageCode}", "${locale.countryCode}"),'));
+          6,
+          'Locale.fromSubtags(languageCode: "${locale.languageCode}", scriptCode: "${locale.scriptCode}"),',
+        ));
     return template.replaceFirst(
       '{SupportedLanguages}',
       supportedLanguages.join('\n'),

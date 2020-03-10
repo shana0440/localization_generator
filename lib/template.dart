@@ -37,7 +37,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
   const GeneratedLocalizationsDelegate(this.locale);
 
   List<Locale> get supportedLocales {
-    return const <Locale>[
+    return <Locale>[
 {SupportedLanguages}
     ];
   }

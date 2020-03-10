@@ -1,8 +1,8 @@
 class Locale {
   final String languageCode;
-  final String countryCode;
+  final String scriptCode;
 
-  Locale._(this.languageCode, [this.countryCode]);
+  Locale._(this.languageCode, [this.scriptCode]);
 
   factory Locale.fromString(String code) {
     final codes = code.split("_");
@@ -12,16 +12,16 @@ class Locale {
   }
 
   String get toClassName {
-    final country = countryCode.isNotEmpty
-        ? "${countryCode[0].toUpperCase()}${countryCode.substring(1)}"
+    final country = scriptCode.isNotEmpty
+        ? "${scriptCode[0].toUpperCase()}${scriptCode.substring(1)}"
         : "";
     return "$languageCode$country";
   }
 
   String get toCase {
-    if (countryCode.isEmpty) {
+    if (scriptCode.isEmpty) {
       return languageCode;
     }
-    return "${languageCode}_$countryCode";
+    return "${languageCode}_$scriptCode";
   }
 }

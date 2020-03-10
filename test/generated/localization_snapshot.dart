@@ -49,9 +49,9 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
   const GeneratedLocalizationsDelegate(this.locale);
 
   List<Locale> get supportedLocales {
-    return const <Locale>[
-      Locale("en", "US"),
-      Locale("zh", "Hant"),
+    return <Locale>[
+      Locale.fromSubtags(languageCode: "en", scriptCode: "US"),
+      Locale.fromSubtags(languageCode: "zh", scriptCode: "Hant"),
     ];
   }
 

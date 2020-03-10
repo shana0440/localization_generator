@@ -29,8 +29,8 @@ class Localized implements WidgetsLocalizations {
   String CounterDescription(String count) => "You have pushed the button this many times: $count";
 }
 
-class $enUS extends Localized {
-  const $enUS();
+class $en extends Localized {
+  const $en();
 }
 
 class $zhHans extends Localized {
@@ -64,7 +64,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
 
   List<Locale> get supportedLocales {
     return <Locale>[
-      Locale.fromSubtags(languageCode: "en", scriptCode: "US"),
+      Locale("en", ""),
       Locale.fromSubtags(languageCode: "zh", scriptCode: "Hans"),
       Locale.fromSubtags(languageCode: "zh", scriptCode: "Hant"),
     ];
@@ -91,8 +91,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
     final String lang = getLang(this.locale ?? locale);
     if (lang != null) {
       switch (lang) {
-        case "en_US":
-          return SynchronousFuture<Localized>(const $enUS());
+        case "en":
+          return SynchronousFuture<Localized>(const $en());
         case "zh_Hans":
           return SynchronousFuture<Localized>(const $zhHans());
         case "zh_Hant":

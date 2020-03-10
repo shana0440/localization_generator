@@ -24,4 +24,12 @@ class Locale {
     }
     return "${languageCode}_$scriptCode";
   }
+
+  String get toLocale {
+    if (scriptCode.isNotEmpty) {
+      return 'Locale.fromSubtags(languageCode: "$languageCode", scriptCode: "$scriptCode"),';
+    } else {
+      return 'Locale("$languageCode", ""),';
+    }
+  }
 }

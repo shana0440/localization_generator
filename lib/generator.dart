@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:localization_generator/locale.dart';
 
 import './template.dart';
+import 'localized_string.dart';
 
 class Generator {
   Directory output;
@@ -93,7 +94,7 @@ $localizedStrings
         .map(
           (key, value) => MapEntry(
             key,
-            indent(2, 'String get $key => "$value";'),
+            indent(2, LocalizedString.fromKeyValue(key, value).toGetter),
           ),
         )
         .values

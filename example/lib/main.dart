@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'i18n/localization.dart';
+import 'l10n/localization.dart';
 
 void main() => runApp(MyApp());
 
@@ -49,6 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     print(Localizations.localeOf(context));
+    final start = DateTime.now().subtract(Duration(hours: 1));
+    final end = DateTime.now();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -58,7 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              Localized.of(context).CounterDescription('$_counter'),
+              Localized.of(context).CounterDescription(count: '$_counter'),
+            ),
+            Text(
+              Localized.of(context).Date(start: '$start', end: '$end'),
             ),
           ],
         ),

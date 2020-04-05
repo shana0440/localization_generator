@@ -4,7 +4,7 @@ A command tool to generate localization from JSON file.
 
 ## Usage
 
-create `en.json` and `zh_Hant.json` at i10n folder
+create `en.json` and `zh_Hant.json` at l10n folder
 
 en.json
 ```json
@@ -24,16 +24,15 @@ zh_Hant.json
 
 and run this command
 ```
-flutter pub run localization_generator --output=./i10n --input=./i10n
+flutter pub run localization_generator --output=./l10n --input=./l10n
 ```
 
-
 ```
-import 'i10n/localization.dart';
+import 'l10n/localization.dart';
 
 MaterialApp(
   onGenerateTitle: (context) {
-    return Localized.of(context).Title("my name");
+    return Localized.of(context).Title(name: "my name");
   },
   theme: ThemeData(
     primarySwatch: Colors.blue,

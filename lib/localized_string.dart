@@ -29,6 +29,6 @@ class LocalizedString {
       return 'String get $key => "$value";';
     }
     final argsString = args.map((it) => "String $it").join(", ");
-    return 'String $key($argsString) => "${_replaceArgs(value)}";';
+    return 'String $key({$argsString}) => "${_replaceArgs(value)}";';
   }
 }

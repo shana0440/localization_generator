@@ -24,25 +24,13 @@ class Localized implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
-  String get Title => "Localization Demo";
-  String get Home => "Home";
-  String CounterDescription(String count) => "You have pushed the button this many times: $count";
+  String get PackageTitle => "Localization Generator";
+  String get PackageDescription => "Use to generate localization code from json file";
+  String ArgumentTest({String start, String end}) => "from $start to $end";
 }
 
-class $en extends Localized {
-  const $en();
-}
-
-class $zhHans extends Localized {
-  const $zhHans();
-
-  @override
-  TextDirection get textDirection => TextDirection.ltr;
-
-  @override
-  String get Title => "测试";
-  String get Home => "首页";
-  String CounterDescription(String count) => "你按了按钮 $count 下:";
+class $enUS extends Localized {
+  const $enUS();
 }
 
 class $zhHant extends Localized {
@@ -52,9 +40,9 @@ class $zhHant extends Localized {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
-  String get Title => "測試";
-  String get Home => "首頁";
-  String CounterDescription(String count) => "你按了按鈕 $count 下:";
+  String get PackageTitle => "多國語系產生器";
+  String get PackageDescription => "從json檔案產出多國語系的程式";
+  String ArgumentTest({String start, String end}) => "從 $start 到 $end";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
@@ -64,8 +52,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
 
   List<Locale> get supportedLocales {
     return <Locale>[
-      Locale("en", ""),
-      Locale.fromSubtags(languageCode: "zh", scriptCode: "Hans"),
+      Locale.fromSubtags(languageCode: "en", scriptCode: "US"),
       Locale.fromSubtags(languageCode: "zh", scriptCode: "Hant"),
     ];
   }
@@ -91,10 +78,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
     final String lang = getLang(this.locale ?? locale);
     if (lang != null) {
       switch (lang) {
-        case "en":
-          return SynchronousFuture<Localized>(const $en());
-        case "zh_Hans":
-          return SynchronousFuture<Localized>(const $zhHans());
+        case "en_US":
+          return SynchronousFuture<Localized>(const $enUS());
         case "zh_Hant":
           return SynchronousFuture<Localized>(const $zhHant());
         default:

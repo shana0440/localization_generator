@@ -5,7 +5,7 @@ class LocalizedString {
   LocalizedString.fromKeyValue(this.key, this.value);
 
   List<String> _findArgs(String value) {
-    final exp = RegExp(r"{{(\w+)}}");
+    final exp = RegExp(r"{(\w+)}");
     final matches = exp.allMatches(value);
     final argNames =
         matches.map((it) => it.group(0).replaceAll(RegExp(r"{|}"), ""));
@@ -13,7 +13,7 @@ class LocalizedString {
   }
 
   String _replaceArgs(String value) {
-    final exp = RegExp(r"{{(\w+)}}");
+    final exp = RegExp(r"{(\w+)}");
     final matches = exp.allMatches(value);
 
     return matches.map((it) {

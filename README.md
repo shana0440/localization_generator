@@ -9,7 +9,7 @@ create `en.json` and `zh_Hant.json` at l10n folder
 en.json
 ```json
 {
-  "Title": "Hello {{name}}",
+  "Title": "Hello {name}",
   "Home": "Home"
 }
 ```
@@ -17,7 +17,7 @@ en.json
 zh_Hant.json
 ```json
 {
-  "Title": "你好 {{name}}",
+  "Title": "你好 {name}",
   "Home": "首頁"
 }
 ```

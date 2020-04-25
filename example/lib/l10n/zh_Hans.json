@@ -1,6 +1,6 @@
 {
   "Title": "测试",
   "Home": "首页",
-  "CounterDescription": "你按了按钮 {{count}} 下:",
-  "Date": "结束于 {{end}}\n 开始于 {{start}}"
+  "CounterDescription": "你按了按钮 {count} 下:",
+  "Date": "结束于 {end}\n 开始于 {start}"
 }

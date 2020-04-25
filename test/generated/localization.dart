@@ -27,6 +27,7 @@ class Localized implements WidgetsLocalizations {
   String get PackageTitle => "Localization Generator";
   String get PackageDescription => "Use to generate localization code from json file";
   String ArgumentTest({String start, String end}) => "from $start to $end";
+  String get BreakLine => "break\nline";
 }
 
 class $enUS extends Localized {
@@ -43,6 +44,7 @@ class $zhHant extends Localized {
   String get PackageTitle => "多國語系產生器";
   String get PackageDescription => "從json檔案產出多國語系的程式";
   String ArgumentTest({String start, String end}) => "從 $start 到 $end";
+  String get BreakLine => "斷\n行";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {

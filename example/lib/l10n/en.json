@@ -2,5 +2,5 @@
   "Title": "Localization Demo",
   "Home": "Home",
   "CounterDescription": "You have pushed the button this many times: {{count}}",
-  "Date": "From {{start}}\\n to {{end}}"
+  "Date": "From {{start}}\n to {{end}}"
 }

@@ -23,12 +23,22 @@ class LocalizedString {
     });
   }
 
+  String escape(String value) {
+    final escapeMap = {
+      "\n": "\\n",
+    };
+    return escapeMap.entries.fold(value, (escapedValue, pair) {
+      return escapedValue.replaceAll(pair.key, pair.value);
+    });
+  }
+
   String get toGetter {
-    final args = _findArgs(value);
+    final escapedValue = escape(value);
+    final args = _findArgs(escapedValue);
     if (args.isEmpty) {
-      return 'String get $key => "$value";';
+      return 'String get $key => "$escapedValue";';
     }
     final argsString = args.map((it) => "String $it").join(", ");
-    return 'String $key({$argsString}) => "${_replaceArgs(value)}";';
+    return 'String $key({$argsString}) => "${_replaceArgs(escapedValue)}";';
   }
 }

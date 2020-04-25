@@ -12,14 +12,16 @@ void main() {
       {
         "PackageTitle": "Localization Generator",
         "PackageDescription": "Use to generate localization code from json file",
-        "ArgumentTest": "from {{start}} to {{end}}"
+        "ArgumentTest": "from {{start}} to {{end}}",
+        "BreakLine": "break\\nline"
       }
       ''');
     var zhJSON = jsonDecode('''
       {
           "PackageTitle": "多國語系產生器",
           "PackageDescription": "從json檔案產出多國語系的程式",
-          "ArgumentTest": "從 {{start}} 到 {{end}}"
+          "ArgumentTest": "從 {{start}} 到 {{end}}",
+          "BreakLine": "斷\\n行"
       }
       ''');
     generator.load('en_US', enJSON);

@@ -1,7 +1,6 @@
 name: localization_generator
 description: A flutter project that used to generate the localization file to help localization easier.
-version: 0.0.5
-author: kwguo <shana0440@gmail.com>
+version: 0.0.6
 homepage: https://github.com/shana0440/localization_generator
 
 environment:

@@ -32,7 +32,8 @@ void main() {
 
   test('Test parse select message', () {
     final parser = ICUParser();
-    final ast = parser.parse("100 {currency, select, TWD{NT} HKD{HK} other{\$}}");
+    final ast =
+        parser.parse("100 {currency, select, TWD{NT} HKD{HK} other{\$}}");
 
     expect(ast[0].value, "100 ");
     expect(ast[1].type, Type.Select);
@@ -46,7 +47,8 @@ void main() {
 
   test('Test parse gender message', () {
     final parser = ICUParser();
-    final ast = parser.parse("{gender, gender, female{female} male{male} other{other}}");
+    final ast = parser
+        .parse("{gender, gender, female{female} male{male} other{other}}");
     expect(ast[0].value, "gender");
     expect(ast[0].type, Type.Gender);
     expect(ast[0].options.keys, ["female", "male", "other"]);
@@ -58,7 +60,8 @@ void main() {
 
   test('Test parse plural message', () {
     final parser = ICUParser();
-    final ast = parser.parse("{count, plural, =0{no reply} =1{1 reply} other{# replies}}");
+    final ast = parser
+        .parse("{count, plural, =0{no reply} =1{1 reply} other{# replies}}");
     expect(ast[0].value, "count");
     expect(ast[0].type, Type.Plural);
     expect(ast[0].options.keys, ["=0", "=1", "other"]);
@@ -71,14 +74,12 @@ void main() {
 
   test('Test nested message', () {
     final parser = ICUParser();
-    final ast = parser.parse(
-      """{gender_of_host, select,
+    final ast = parser.parse("""{gender_of_host, select,
         female {{num_guests, plural,
             =0 {{host} doest not give a party.}
             =1 {{host} invites {guest} to her party.}
             =2 {{host} invites {guest} and one other person to her party.}
-            other {{host} invites {guest} and # other people to her party.}}}}"""
-    );
+            other {{host} invites {guest} and # other people to her party.}}}}""");
 
     expect(ast[0].type, Type.Select);
     expect(ast[0].value, "gender_of_host");

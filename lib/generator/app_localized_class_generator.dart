@@ -7,13 +7,14 @@ class AppLocalizedClassGenerator {
     final canonicalizedLocales = locales.map<Locale>(
       (it) => Locale.parse(it),
     );
-    final msg = messages.map((it) => "${it};".indent(2)).join("\n");
+    final msg = messages.map((it) => "$it;".indent(2)).join("\n");
     final loadLocalizationSwitchCase = """
 switch (localeName) {
-${canonicalizedLocales.map((it) => Intl.canonicalizedLocale(it.toLanguageTag())).map((it) => 'case "${it}":\n  return new $it();'.indent(2)).join("\n")}
+${canonicalizedLocales.map((it) => Intl.canonicalizedLocale(it.toLanguageTag())).map((it) => 'case "$it":\n  return new $it();'.indent(2)).join("\n")}
   default:
     return null;
-}""".indent(4);
+}"""
+        .indent(4);
 
     final supportLocale = canonicalizedLocales
         .map((it) => _convertLocaleToSubtagFormat(it))
@@ -47,7 +48,7 @@ $supportLocale
   Future<Localized> load(Locale locale) async {
     final String localeName = Intl.canonicalizedLocale(locale.toString());
     Intl.defaultLocale = localeName;
-${loadLocalizationSwitchCase}
+$loadLocalizationSwitchCase
   }
 
   @override

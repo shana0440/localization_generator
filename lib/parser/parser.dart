@@ -9,7 +9,7 @@ class Node {
 
   @override
   String toString() {
-    return "$type, $value, ${options}";
+    return "$type, $value, $options";
   }
 }
 

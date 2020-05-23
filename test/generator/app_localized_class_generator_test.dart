@@ -4,7 +4,10 @@ import 'package:test/test.dart';
 void main() {
   test('Test generate class', () {
     final classGenerator = AppLocalizedClassGenerator();
-    final classStr = classGenerator.generate(["en_US", "zh_Hant"], [
+    final classStr = classGenerator.generate([
+      "en_US",
+      "zh_Hant"
+    ], [
       """String get hi => Intl.message("hi")""",
       """String get hello => Intl.message("hello")""",
     ]);

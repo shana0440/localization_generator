@@ -1,3 +1,5 @@
+## [0.1.1]
+- Fix some analytics issues
 ## [0.1.0]
 - Support (ICU format message)[http://userguide.icu-project.org/formatparse/messages]
 ## [0.0.6]

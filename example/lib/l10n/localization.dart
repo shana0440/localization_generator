@@ -10,10 +10,11 @@ class Localized {
     return Localizations.of<Localized>(context, Localized);
   }
 
-  String get Title => Intl.message("Localization Demo");
-  String get Home => Intl.message("Home");
-  String CounterDescription({dynamic count}) => Intl.message("You have pushed the button this many times: $count");
-  String Date({dynamic start, dynamic end}) => Intl.message("From $start\n to $end");
+  String get hi => Intl.message("Hi");
+  String hello({dynamic name}) => Intl.message("Hello $name");
+  String price({dynamic currency}) => Intl.message("100 ") + Intl.select(currency, {"TWD": Intl.message("NT"), "other": Intl.message("\$")});
+  String gender({dynamic gender}) => Intl.message("gender: ") + Intl.gender(gender, female: Intl.message("female"), male: Intl.message("male"), other: Intl.message("other"));
+  String reply({dynamic count}) => Intl.plural(count, zero: Intl.message("no reply"), one: Intl.message("1 reply"), other: Intl.message("$count replies"));
 }
 
 class LocalizedDelegate extends LocalizationsDelegate<Localized> {
@@ -54,42 +55,39 @@ class LocalizedDelegate extends LocalizationsDelegate<Localized> {
 
 class en extends Localized {
   @override
-  TextDirection get textDirection => TextDirection.LTR;
-  
+  String get hi => Intl.message("Hi");
   @override
-  String get Title => Intl.message("Localization Demo");
+  String hello({dynamic name}) => Intl.message("Hello $name");
   @override
-  String get Home => Intl.message("Home");
+  String price({dynamic currency}) => Intl.message("100 ") + Intl.select(currency, {"TWD": Intl.message("NT"), "other": Intl.message("\$")});
   @override
-  String CounterDescription({dynamic count}) => Intl.message("You have pushed the button this many times: $count");
+  String gender({dynamic gender}) => Intl.message("gender: ") + Intl.gender(gender, female: Intl.message("female"), male: Intl.message("male"), other: Intl.message("other"));
   @override
-  String Date({dynamic start, dynamic end}) => Intl.message("From $start\n to $end");
+  String reply({dynamic count}) => Intl.plural(count, zero: Intl.message("no reply"), one: Intl.message("1 reply"), other: Intl.message("$count replies"));
 }
 
 class zh_Hans extends Localized {
   @override
-  TextDirection get textDirection => TextDirection.LTR;
-  
+  String get hi => Intl.message("(簡)嗨");
   @override
-  String get Title => Intl.message("测试");
+  String hello({dynamic name}) => Intl.message("(簡)你好 $name");
   @override
-  String get Home => Intl.message("首页");
+  String price({dynamic currency}) => Intl.message("(簡)100 ") + Intl.select(currency, {"TWD": Intl.message("台幣"), "other": Intl.message("\$")});
   @override
-  String CounterDescription({dynamic count}) => Intl.message("你按了按钮 $count 下:");
+  String gender({dynamic gender}) => Intl.message("(簡)gender: ") + Intl.gender(gender, female: Intl.message("女"), male: Intl.message("男"), other: Intl.message("第三性"));
   @override
-  String Date({dynamic end, dynamic start}) => Intl.message("结束于 $end\n 开始于 $start");
+  String reply({dynamic count}) => Intl.message("(簡)") + Intl.plural(count, zero: Intl.message("沒有回覆"), one: Intl.message("1個回覆"), other: Intl.message("$count個回覆"));
 }
 
 class zh_Hant extends Localized {
   @override
-  TextDirection get textDirection => TextDirection.LTR;
-  
+  String get hi => Intl.message("嗨");
   @override
-  String get Title => Intl.message("測試");
+  String hello({dynamic name}) => Intl.message("你好 $name");
   @override
-  String get Home => Intl.message("首頁");
+  String price({dynamic currency}) => Intl.message("100 ") + Intl.select(currency, {"TWD": Intl.message("台幣"), "other": Intl.message("\$")});
   @override
-  String CounterDescription({dynamic count}) => Intl.message("你按了按鈕 $count 下:");
+  String gender({dynamic gender}) => Intl.message("gender: ") + Intl.gender(gender, female: Intl.message("女"), male: Intl.message("男"), other: Intl.message("第三性"));
   @override
-  String Date({dynamic end, dynamic start}) => Intl.message("結束於 $end\n 開始於 $start");
+  String reply({dynamic count}) => Intl.plural(count, zero: Intl.message("沒有回覆"), one: Intl.message("1個回覆"), other: Intl.message("$count個回覆"));
 }

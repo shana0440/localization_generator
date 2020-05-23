@@ -1,6 +1,7 @@
 {
-  "Title": "測試",
-  "Home": "首頁",
-  "CounterDescription": "你按了按鈕 {count} 下:",
-  "Date": "結束於 {end}\\n 開始於 {start}"
+  "hi": "嗨",
+  "hello": "你好 {name}",
+  "price": "100 {currency, select, TWD{台幣} other{\\$}}",
+  "gender": "gender: {gender, gender, female{女} male{男} other{第三性}}",
+  "reply": "{count, plural, =0{沒有回覆} =1{1個回覆} other{#個回覆}}"
 }

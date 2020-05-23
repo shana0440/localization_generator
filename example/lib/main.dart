@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateTitle: (context) {
-        return Localized.of(context).Title;
+        return Localized.of(context).hi;
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -22,57 +22,31 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: Localized.delegate.supportedLocales,
       home: Builder(builder: (context) {
-        return MyHomePage(title: Localized.of(context).Home);
+        return MyHomePage();
       }),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    print(Localizations.localeOf(context));
-    final start = DateTime.now().subtract(Duration(hours: 1));
-    final end = DateTime.now();
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(Localized.of(context).hello(name: "my name")),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              Localized.of(context).CounterDescription(count: '$_counter'),
-            ),
-            Text(
-              Localized.of(context).Date(start: '$start', end: '$end'),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      body: Column(
+        children: [
+          Text(Localized.of(context).hi),
+          Text(Localized.of(context).price(currency: "TWD")),
+          Text(Localized.of(context).gender(gender: "female")),
+          Text(Localized.of(context).reply(count: 0)),
+        ],
       ),
     );
   }

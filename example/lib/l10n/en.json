@@ -1,6 +1,7 @@
 {
-  "Title": "Localization Demo",
-  "Home": "Home",
-  "CounterDescription": "You have pushed the button this many times: {count}",
-  "Date": "From {start}\\n to {end}"
+  "hi": "Hi",
+  "hello": "Hello {name}",
+  "price": "100 {currency, select, TWD{NT} other{\\$}}",
+  "gender": "gender: {gender, gender, female{female} male{male} other{other}}",
+  "reply": "{count, plural, =0{no reply} =1{1 reply} other{# replies}}"
 }

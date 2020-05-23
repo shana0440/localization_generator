@@ -11,7 +11,12 @@ import 'package:flutter/material.dart';
 class Localized implements WidgetsLocalizations {
   const Localized();
 
-  static newDelegate(Locale locale) => GeneratedLocalizationsDelegate(locale);
+  String get hi => Intl.message("Hi");
+  String hello({dynamic name}) => Intl.message("Hello $name");
+  String price({dynamic currency}) => Intl.message("100 ") + Intl.select(currency, {"TWD": Intl.message("NT"), "HKD": Intl.message("HK"), "other": Intl.message("\$")});
+  String gender({dynamic gender}) => Intl.message("gender: ") + Intl.gender(gender, female: Intl.message("female"), male: Intl.message("male"), other: Intl.message("other"));
+  String reply({dynamic count}) => Intl.plural(count, zero: Intl.message("no reply"), one: Intl.message("1 reply"), other: Intl.message("$count replies"));
+}
 
   static const GeneratedLocalizationsDelegate delegate =
       GeneratedLocalizationsDelegate(null);
@@ -34,114 +39,29 @@ class $enUS extends Localized {
   const $enUS();
 }
 
-class $zhHant extends Localized {
-  const $zhHant();
-
+class en_US extends Localized {
+  @override
+  String get hi => Intl.message("Hi");
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
-  String get PackageTitle => "多國語系產生器";
-  String get PackageDescription => "從json檔案產出多國語系的程式";
-  String ArgumentTest({String start, String end}) => "從 $start 到 $end";
-  String get BreakLine => "斷\n行";
+  String price({dynamic currency}) => Intl.message("100 ") + Intl.select(currency, {"TWD": Intl.message("NT"), "HKD": Intl.message("HK"), "other": Intl.message("\$")});
+  @override
+  String gender({dynamic gender}) => Intl.message("gender: ") + Intl.gender(gender, female: Intl.message("female"), male: Intl.message("male"), other: Intl.message("other"));
+  @override
+  String reply({dynamic count}) => Intl.plural(count, zero: Intl.message("no reply"), one: Intl.message("1 reply"), other: Intl.message("$count replies"));
 }
 
-class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
-  final Locale locale;
-
-  const GeneratedLocalizationsDelegate(this.locale);
-
-  List<Locale> get supportedLocales {
-    return <Locale>[
-      Locale.fromSubtags(languageCode: "en", scriptCode: "US"),
-      Locale.fromSubtags(languageCode: "zh", scriptCode: "Hant"),
-    ];
-  }
-
-  LocaleListResolutionCallback listResolution({Locale fallback}) {
-    return (List<Locale> locales, Iterable<Locale> supported) {
-      if (locales == null || locales.isEmpty) {
-        return fallback ?? supported.first;
-      } else {
-        return _resolve(locales.first, fallback, supported);
-      }
-    };
-  }
-
-  LocaleResolutionCallback resolution({Locale fallback}) {
-    return (Locale locale, Iterable<Locale> supported) {
-      return _resolve(locale, fallback, supported);
-    };
-  }
-
+class zh_Hant extends Localized {
   @override
-  Future<Localized> load(Locale locale) {
-    final String lang = getLang(this.locale ?? locale);
-    if (lang != null) {
-      switch (lang) {
-        case "en_US":
-          return SynchronousFuture<Localized>(const $enUS());
-        case "zh_Hant":
-          return SynchronousFuture<Localized>(const $zhHant());
-        default:
-        // NO-OP.
-      }
-    }
-    return SynchronousFuture<Localized>(const Localized());
-  }
-
+  String get hi => Intl.message("嗨");
   @override
-  bool isSupported(Locale locale) => _isSupported(locale);
-
+  String hello({dynamic name}) => Intl.message("你好 $name");
   @override
-  bool shouldReload(GeneratedLocalizationsDelegate old) =>
-      old.locale != this.locale;
-
-  ///
-  /// Internal method to resolve a locale from a list of locales.
-  ///
-  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported) {
-    if (!_isSupported(locale)) {
-      return fallback ?? supported.first;
-    }
-
-    final Locale languageLocale = Locale(locale.languageCode, "");
-    if (supported.contains(locale)) {
-      return locale;
-    } else if (supported.contains(languageLocale)) {
-      return languageLocale;
-    } else {
-      final Locale fallbackLocale = fallback ?? supported.first;
-      return fallbackLocale;
-    }
-  }
-
-  ///
-  /// Returns true if the specified locale is supported, false otherwise.
-  ///
-  bool _isSupported(Locale locale) {
-    if (locale == null) {
-      return false;
-    }
-    if (supportedLocales.contains(locale)) {
-      return true;
-    }
-
-    for (Locale supportedLocale in supportedLocales) {
-      if (supportedLocale.countryCode == null ||
-          supportedLocale.countryCode.isEmpty) {
-        if (supportedLocale.languageCode == locale.languageCode) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+  String price({dynamic currency}) => Intl.message("100 ") + Intl.select(currency, {"TWD": Intl.message("台幣"), "other": Intl.message("\$")});
+  @override
+  String gender({dynamic gender}) => Intl.message("gender: ") + Intl.gender(gender, female: Intl.message("女"), male: Intl.message("男"), other: Intl.message("第三性"));
+  @override
+  String reply({dynamic count}) => Intl.plural(count, zero: Intl.message("沒有回覆"), one: Intl.message("1個回覆"), other: Intl.message("$count個回覆"));
 }
-
-String getLang(Locale l) => l == null
-    ? null
-    : l.countryCode != null && l.countryCode.isEmpty
-        ? l.languageCode
-        : l.toString();

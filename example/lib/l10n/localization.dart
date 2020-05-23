@@ -34,9 +34,11 @@ class $en extends Localized {
   const $en();
 }
 
-class $zhHans extends Localized {
-  const $zhHans();
-
+class en extends Localized {
+  @override
+  String get Title => Intl.message("Localization Demo");
+  @override
+  String get Home => Intl.message("Home");
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
@@ -46,10 +48,12 @@ class $zhHans extends Localized {
   String CounterDescription({String count}) => "你按了按钮 $count 下:";
   String Date({String end, String start}) => "结束于 $end\n 开始于 $start";
 }
-
-class $zhHant extends Localized {
-  const $zhHant();
-
+    
+class zh_Hans extends Localized {
+  @override
+  String get Title => Intl.message("测试");
+  @override
+  String get Home => Intl.message("首页");
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
@@ -59,36 +63,10 @@ class $zhHant extends Localized {
   String CounterDescription({String count}) => "你按了按鈕 $count 下:";
   String Date({String end, String start}) => "結束於 $end\n 開始於 $start";
 }
-
-class GeneratedLocalizationsDelegate extends LocalizationsDelegate<Localized> {
-  final Locale locale;
-
-  const GeneratedLocalizationsDelegate(this.locale);
-
-  List<Locale> get supportedLocales {
-    return <Locale>[
-      Locale("en", ""),
-      Locale.fromSubtags(languageCode: "zh", scriptCode: "Hans"),
-      Locale.fromSubtags(languageCode: "zh", scriptCode: "Hant"),
-    ];
-  }
-
-  LocaleListResolutionCallback listResolution({Locale fallback}) {
-    return (List<Locale> locales, Iterable<Locale> supported) {
-      if (locales == null || locales.isEmpty) {
-        return fallback ?? supported.first;
-      } else {
-        return _resolve(locales.first, fallback, supported);
-      }
-    };
-  }
-
-  LocaleResolutionCallback resolution({Locale fallback}) {
-    return (Locale locale, Iterable<Locale> supported) {
-      return _resolve(locale, fallback, supported);
-    };
-  }
-
+    
+class zh_Hant extends Localized {
+  @override
+  String get Title => Intl.message("測試");
   @override
   Future<Localized> load(Locale locale) {
     final String lang = getLang(this.locale ?? locale);

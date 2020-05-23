@@ -2,5 +2,5 @@
   "Title": "測試",
   "Home": "首頁",
   "CounterDescription": "你按了按鈕 {count} 下:",
-  "Date": "結束於 {end}\n 開始於 {start}"
+  "Date": "結束於 {end}\\n 開始於 {start}"
 }

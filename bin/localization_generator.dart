@@ -1,14 +1,13 @@
 library localization_generator;
 
-import 'package:args/args.dart';
-import 'package:path/path.dart';
+import 'dart:io';
 
-import 'package:localization_generator/generator.dart';
-import 'package:localization_generator/loader.dart';
+import 'package:args/args.dart';
+import 'package:localization_generator/main.dart';
 
 main(List<String> args) {
-  var output = "";
-  var input = "";
+  String output = "";
+  String input = "";
 
   var parser = ArgParser();
   parser.addOption(
@@ -23,12 +22,5 @@ main(List<String> args) {
   );
   parser.parse(args);
 
-  final generator = Generator(output);
-  final loader = JSONLoader(input);
-  loader.onLoaded((filename, json) {
-    final locale = basenameWithoutExtension(filename);
-    generator.load(locale, json);
-  });
-  loader.load();
-  generator.generate();
+  doGenerate(Directory(input), Directory(output));
 }

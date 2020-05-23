@@ -50,14 +50,20 @@ class LocalizedDelegate extends LocalizationsDelegate<Localized> {
 
 class en_US extends Localized {
   @override
+  TextDirection get textDirection => TextDirection.LTR;
+  
+  @override
   String get hi => Intl.message("Hi");
   @override
   String hello({dynamic name}) => Intl.message("Hello $name");
   @override
   String price({dynamic currency}) => Intl.message("100 ") + Intl.select(currency, {"TWD": Intl.message("NT"), "HKD": Intl.message("HK"), "other": Intl.message("\$")});
 }
-
+    
 class zh_Hant extends Localized {
+  @override
+  TextDirection get textDirection => TextDirection.LTR;
+  
   @override
   String get hi => Intl.message("Hi");
   @override
@@ -65,3 +71,4 @@ class zh_Hant extends Localized {
   @override
   String price({dynamic currency}) => Intl.message("100 ") + Intl.select(currency, {"TWD": Intl.message("NT"), "other": Intl.message("$")});
 }
+    

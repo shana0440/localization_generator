@@ -1,3 +1,5 @@
+## [0.1.0]
+- Support (ICU format message)[http://userguide.icu-project.org/formatparse/messages]
 ## [0.0.6]
 - Support break line
 - Reduce argument parentheses

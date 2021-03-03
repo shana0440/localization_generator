@@ -9,7 +9,7 @@ environment:
 dependencies:
   args: ^1.6.0
   path: ^1.6.4
-  intl: ^0.16.1
+  intl: ^0.17.0
 
 dev_dependencies:
   test: ^1.2.0

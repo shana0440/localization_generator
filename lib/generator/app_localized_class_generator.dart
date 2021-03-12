@@ -12,7 +12,7 @@ class AppLocalizedClassGenerator {
 switch (localeName) {
 ${canonicalizedLocales.map((it) => Intl.canonicalizedLocale(it.toLanguageTag())).map((it) => 'case "$it":\n  return new $it();'.indent(2)).join("\n")}
   default:
-    return null;
+    throw Exception('Could not find a locale: ' + localeName);
 }"""
         .indent(4);
 
@@ -26,7 +26,7 @@ class Localized {
   static const delegate = LocalizedDelegate();
 
   static Localized of(BuildContext context) {
-    return Localizations.of<Localized>(context, Localized);
+    return Localizations.of<Localized>(context, Localized)!;
   }
 
 $msg

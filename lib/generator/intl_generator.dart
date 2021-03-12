@@ -18,29 +18,25 @@ class IntlGenerator extends Generator {
     }
   }
 
-  String _convertATS(List<Node> ats, {String pluralHashTagVariable}) {
+  String _convertATS(List<Node> ats, {String? pluralHashTagVariable}) {
     final List<Node> nodes = [];
-    final List<String> messages = [];
+    final List<String?> messages = [];
     for (final node in ats) {
       if (node.type == Type.Select) {
         messages.add(_convertMessage(nodes));
         nodes.clear();
         messages.add(_convertSelect(node));
-      }
-      if (node.type == Type.Gender) {
+      } else if (node.type == Type.Gender) {
         messages.add(_convertMessage(nodes));
         nodes.clear();
         messages.add(_convertGender(node));
-      }
-      if (node.type == Type.Plural) {
+      } else if (node.type == Type.Plural) {
         messages.add(_convertMessage(nodes));
         nodes.clear();
         messages.add(_convertPlural(node));
-      }
-      if (node.type == Type.Argument || node.type == Type.Message) {
+      } else if (node.type == Type.Argument || node.type == Type.Message) {
         nodes.add(node);
-      }
-      if (node.type == Type.HashTag) {
+      } else if (node.type == Type.HashTag) {
         nodes.add(Node(
           type: Type.Argument,
           value: pluralHashTagVariable,
@@ -52,18 +48,15 @@ class IntlGenerator extends Generator {
     return messages.where((it) => it != null).join(" + ");
   }
 
-  String _convertMessage(List<Node> ats) {
-    if (ats.isEmpty) {
-      return null;
-    }
-
+  String? _convertMessage(List<Node> ats) {
+    if (ats.isEmpty) return null;
     String msg = "";
     for (final node in ats) {
       if (node.type == Type.Message) {
-        msg += node.value;
+        msg += node.value!;
       }
       if (node.type == Type.Argument) {
-        _arguments.add(node.value);
+        _arguments.add(node.value!);
         msg += "\$${node.value}";
       }
     }
@@ -71,7 +64,7 @@ class IntlGenerator extends Generator {
   }
 
   String _convertSelect(Node node) {
-    _arguments.add(node.value);
+    _arguments.add(node.value!);
     final options = node.options.entries
         .fold<Map<String, String>>({}, (acc, entry) {
           acc[entry.key] = _convertATS(entry.value);
@@ -88,27 +81,27 @@ class IntlGenerator extends Generator {
   }
 
   String _convertGender(Node node) {
-    _arguments.add(node.value);
+    _arguments.add(node.value!);
     final List<String> options = [];
     if (node.options.containsKey('female')) {
-      options.add('female: ${_convertATS(node.options['female'])}');
+      options.add('female: ${_convertATS(node.options['female']!)}');
     }
     if (node.options.containsKey('male')) {
-      options.add('male: ${_convertATS(node.options['male'])}');
+      options.add('male: ${_convertATS(node.options['male']!)}');
     }
     if (node.options.containsKey('other')) {
-      options.add('other: ${_convertATS(node.options['other'])}');
+      options.add('other: ${_convertATS(node.options['other']!)}');
     }
     return """Intl.gender(${node.value}, ${options.join(", ")})""";
   }
 
   String _convertPlural(Node node) {
-    _arguments.add(node.value);
+    _arguments.add(node.value!);
     final List<String> options = [];
     if (node.options.containsKey('=0') || node.options.containsKey('zero')) {
       options.add(
         'zero: ${_convertATS(
-          node.options['=0'] ?? node.options['zero'],
+          node.options['=0'] ?? node.options['zero']!,
           pluralHashTagVariable: node.value,
         )}',
       );
@@ -116,7 +109,7 @@ class IntlGenerator extends Generator {
     if (node.options.containsKey('=1') || node.options.containsKey('one')) {
       options.add(
         'one: ${_convertATS(
-          node.options['=1'] ?? node.options['one'],
+          node.options['=1'] ?? node.options['one']!,
           pluralHashTagVariable: node.value,
         )}',
       );
@@ -124,26 +117,26 @@ class IntlGenerator extends Generator {
     if (node.options.containsKey('=2') || node.options.containsKey('two')) {
       options.add(
         'two: ${_convertATS(
-          node.options['=2'] ?? node.options['two'],
+          node.options['=2'] ?? node.options['two']!,
           pluralHashTagVariable: node.value,
         )}',
       );
     }
     if (node.options.containsKey('few')) {
       options.add('few: ${_convertATS(
-        node.options['few'],
+        node.options['few']!,
         pluralHashTagVariable: node.value,
       )}');
     }
     if (node.options.containsKey('many')) {
       options.add('many: ${_convertATS(
-        node.options['many'],
+        node.options['many']!,
         pluralHashTagVariable: node.value,
       )}');
     }
     if (node.options.containsKey('other')) {
       options.add('other: ${_convertATS(
-        node.options['other'],
+        node.options['other']!,
         pluralHashTagVariable: node.value,
       )}');
     }

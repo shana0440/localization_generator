@@ -3,9 +3,13 @@ enum Type { Message, Select, Plural, Gender, Argument, HashTag }
 class Node {
   final Type type;
   final Map<String, List<Node>> options;
-  final String value;
+  final String? value;
 
-  Node({this.type, this.options, this.value});
+  const Node({
+    required this.type,
+    this.options = const <String, List<Node>>{},
+    this.value,
+  });
 
   @override
   String toString() {

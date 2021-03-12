@@ -155,7 +155,7 @@ class ICUParser implements Parser {
     );
   }
 
-  Map<String, List<Node>> _parseOptions([List<String> allowValue]) {
+  Map<String, List<Node>> _parseOptions([List<String>? allowValue]) {
     final Map<String, List<Node>> options = {};
     while (!_reachEnd && !_predict(_closeCurly)) {
       String value = "";

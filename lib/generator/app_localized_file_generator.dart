@@ -14,7 +14,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-${appLocalizedClassGenerator.generate(locales, messages)}
+${appLocalizedClassGenerator.generate(locales, messages!)}
 
 ${localedMessage.entries.map((it) => localizationClassGenerator.generate(it.key, it.value)).join('\n')}""";
   }

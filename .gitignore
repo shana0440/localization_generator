@@ -72,5 +72,3 @@ build/
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 test/generated/localization.dart
-test/generated/localization_snapshot.dart
-

@@ -7,7 +7,9 @@ class Localized {
   static const delegate = LocalizedDelegate();
 
   static Localized of(BuildContext context) {
-    return Localizations.of<Localized>(context, Localized);
+    final localized = Localizations.of<Localized>(context, Localized);
+    if(localized == null) throw Exception('Could not find a Localization with the given context.');
+    return localized;
   }
 
   String get hi => Intl.message("Hi");
@@ -38,7 +40,7 @@ class LocalizedDelegate extends LocalizationsDelegate<Localized> {
       case "zh_Hant":
         return new zh_Hant();
       default:
-        return null;
+        throw Exception('Could not find the locale: ' + localeName);
     }
   }
 

@@ -6,7 +6,7 @@ class AppLocalizedFileGenerator {
     final appLocalizedClassGenerator = AppLocalizedClassGenerator();
     final localizationClassGenerator = LocalizationClassGenerator();
     final locales = localedMessage.keys.toList();
-    final messages = localedMessage[locales.first];
+    final messages = localedMessage.entries.first.value;
 
     return """
 import 'dart:async';
@@ -14,7 +14,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-${appLocalizedClassGenerator.generate(locales, messages!)}
+${appLocalizedClassGenerator.generate(locales, messages)}
 
 ${localedMessage.entries.map((it) => localizationClassGenerator.generate(it.key, it.value)).join('\n')}""";
   }

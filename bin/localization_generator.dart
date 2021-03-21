@@ -13,12 +13,12 @@ main(List<String> args) {
   parser.addOption(
     'output',
     help: 'generate localization file to output folder',
-    callback: (value) => output = value,
+    callback: (value) => output = value!,
   );
   parser.addOption(
     'input',
     help: 'localized json file folder',
-    callback: (value) => input = value,
+    callback: (value) => input = value!,
   );
   parser.parse(args);
 

@@ -6,7 +6,7 @@ class AppLocalizedFileGenerator {
     final appLocalizedClassGenerator = AppLocalizedClassGenerator();
     final localizationClassGenerator = LocalizationClassGenerator();
     final locales = localedMessage.keys.toList();
-    final messages = localedMessage[locales.first];
+    final messages = localedMessage.entries.first.value;
 
     return """
 import 'dart:async';

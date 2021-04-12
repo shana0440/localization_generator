@@ -32,10 +32,7 @@ class ICUParser implements Parser {
 
     void addMessageToNodes(String message) {
       if (message != "") {
-        nodes.add(Node(
-          type: Type.Message,
-          value: message,
-        ));
+        nodes.add(MessageNode(message));
       }
     }
 
@@ -62,7 +59,7 @@ class ICUParser implements Parser {
         message = "";
 
         _take();
-        nodes.add(Node(type: Type.HashTag));
+        nodes.add(HashTagNode());
       } else {
         if (_predict(_doubleSingleQuote)) {
           _take(); // take away single quote
@@ -72,10 +69,7 @@ class ICUParser implements Parser {
     }
 
     if (message != "") {
-      nodes.add(Node(
-        value: message,
-        type: Type.Message,
-      ));
+      nodes.add(MessageNode(message));
     }
 
     if (_predict(_closeCurly)) {
@@ -105,10 +99,7 @@ class ICUParser implements Parser {
 
     if (_predict(_closeCurly)) {
       _take();
-      return Node(
-        value: argument,
-        type: Type.Argument,
-      );
+      return ArgumentNode(argument);
     }
 
     throw ArgumentError('Need }');
@@ -120,11 +111,7 @@ class ICUParser implements Parser {
       throw ArgumentError('Only support select, plural, gender');
     }
     final options = _parseOptions();
-    return Node(
-      type: Type.Select,
-      value: argument,
-      options: options,
-    );
+    return SelectNode(argument, options);
   }
 
   Node _parseGender() {
@@ -133,11 +120,7 @@ class ICUParser implements Parser {
       throw ArgumentError('Only support select, plural, gender');
     }
     final options = _parseOptions(['female', 'male', 'other']);
-    return Node(
-      type: Type.Gender,
-      value: argument,
-      options: options,
-    );
+    return GenderNode(argument, options);
   }
 
   Node _parsePlural() {
@@ -148,11 +131,7 @@ class ICUParser implements Parser {
     final options = _parseOptions(
       ['=0', '=1', '=2', 'zero', 'one', 'two', 'few', 'many', 'other'],
     );
-    return Node(
-      type: Type.Plural,
-      value: argument,
-      options: options,
-    );
+    return PluralNode(argument, options);
   }
 
   Map<String, List<Node>> _parseOptions([List<String>? allowValue]) {

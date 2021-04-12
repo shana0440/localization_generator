@@ -22,25 +22,22 @@ class IntlGenerator extends Generator {
     final List<Node> nodes = [];
     final List<String?> messages = [];
     for (final node in ats) {
-      if (node.type == Type.Select) {
+      if (node is SelectNode) {
         messages.add(_convertMessage(nodes));
         nodes.clear();
         messages.add(_convertSelect(node));
-      } else if (node.type == Type.Gender) {
+      } else if (node is GenderNode) {
         messages.add(_convertMessage(nodes));
         nodes.clear();
         messages.add(_convertGender(node));
-      } else if (node.type == Type.Plural) {
+      } else if (node is PluralNode) {
         messages.add(_convertMessage(nodes));
         nodes.clear();
         messages.add(_convertPlural(node));
-      } else if (node.type == Type.Argument || node.type == Type.Message) {
+      } else if (node is ArgumentNode || node is MessageNode) {
         nodes.add(node);
-      } else if (node.type == Type.HashTag) {
-        nodes.add(Node(
-          type: Type.Argument,
-          value: pluralHashTagVariable,
-        ));
+      } else if (node is HashTagNode) {
+        nodes.add(ArgumentNode(pluralHashTagVariable));
       }
     }
     messages.add(_convertMessage(nodes));
@@ -52,10 +49,10 @@ class IntlGenerator extends Generator {
     if (ats.isEmpty) return null;
     String msg = "";
     for (final node in ats) {
-      if (node.type == Type.Message) {
+      if (node is MessageNode) {
         msg += node.value!;
       }
-      if (node.type == Type.Argument) {
+      if (node is ArgumentNode) {
         _arguments.add(node.value!);
         msg += "\$${node.value}";
       }

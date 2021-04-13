@@ -30,7 +30,7 @@ class ICUParser implements Parser {
     String message = "";
     bool isEscaping = false;
 
-    void addMessageToNodes(String message) {
+    void addMessageNode(String message) {
       if (message != "") {
         nodes.add(MessageNode(message));
       }
@@ -44,7 +44,7 @@ class ICUParser implements Parser {
       }
 
       if (_predict(_openCurly) && !isEscaping) {
-        addMessageToNodes(message);
+        addMessageNode(message);
         message = "";
 
         _take();
@@ -55,7 +55,7 @@ class ICUParser implements Parser {
           _parsePlural,
         ]));
       } else if (_predict(_hashtag) && !isEscaping) {
-        addMessageToNodes(message);
+        addMessageNode(message);
         message = "";
 
         _take();
@@ -64,13 +64,13 @@ class ICUParser implements Parser {
         if (_predict(_doubleSingleQuote)) {
           _take(); // take away single quote
         }
-        message += _take();
+        if (!_reachEnd) {
+          message += _take();
+        }
       }
     }
 
-    if (message != "") {
-      nodes.add(MessageNode(message));
-    }
+    addMessageNode(message);
 
     if (_predict(_closeCurly)) {
       _take();

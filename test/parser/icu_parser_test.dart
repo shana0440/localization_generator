@@ -72,6 +72,12 @@ void main() {
     expect(values[2][1].value, " replies");
   });
 
+  test('Test escape at end of the string', () {
+    final parser = ICUParser();
+    final ast = parser.parse("'{hello}'");
+    expect(ast[0].value, "{hello}");
+  });
+
   test('Test nested message', () {
     final parser = ICUParser();
     final ast = parser.parse("""{gender_of_host, select,

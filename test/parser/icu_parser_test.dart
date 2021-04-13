@@ -78,6 +78,13 @@ void main() {
     expect(ast[0].value, "{hello}");
   });
 
+  test('Test use hashtag without options', () {
+    final parser = ICUParser();
+    final ast = parser.parse("#{number}");
+    expect(ast[0].value, "#");
+    expect(ast[1].value, "number");
+  });
+
   test('Test nested message', () {
     final parser = ICUParser();
     final ast = parser.parse("""{gender_of_host, select,

@@ -1,6 +1,8 @@
 import 'package:localization_generator/parser/parser.dart';
 import 'package:localization_generator/parser/token.dart';
 
+enum State { Message, Plural, Select, Gender }
+
 class ICUParser implements Parser {
   int _offset = 0;
   String _value = "";
@@ -22,10 +24,10 @@ class ICUParser implements Parser {
   List<Node> parse(String value) {
     _value = value;
     _offset = 0;
-    return _doParse();
+    return _doParse(State.Message);
   }
 
-  List<Node> _doParse() {
+  List<Node> _doParse(State state) {
     final List<Node> nodes = [];
     String message = "";
     bool isEscaping = false;
@@ -54,7 +56,7 @@ class ICUParser implements Parser {
           _parseGender,
           _parsePlural,
         ]));
-      } else if (_predict(_hashtag) && !isEscaping) {
+      } else if (_predict(_hashtag) && !isEscaping && state == State.Plural) {
         addMessageNode(message);
         message = "";
 
@@ -110,7 +112,7 @@ class ICUParser implements Parser {
     if (!_select.isOk(_takeUntil(_comma))) {
       throw ArgumentError('Only support select, plural, gender');
     }
-    final options = _parseOptions();
+    final options = _parseOptions(State.Select);
     return SelectNode(argument, options);
   }
 
@@ -119,7 +121,7 @@ class ICUParser implements Parser {
     if (!_gender.isOk(_takeUntil(_comma))) {
       throw ArgumentError('Only support select, plural, gender');
     }
-    final options = _parseOptions(['female', 'male', 'other']);
+    final options = _parseOptions(State.Gender, ['female', 'male', 'other']);
     return GenderNode(argument, options);
   }
 
@@ -129,12 +131,14 @@ class ICUParser implements Parser {
       throw ArgumentError('Only support select, plural, gender');
     }
     final options = _parseOptions(
+      State.Plural,
       ['=0', '=1', '=2', 'zero', 'one', 'two', 'few', 'many', 'other'],
     );
     return PluralNode(argument, options);
   }
 
-  Map<String, List<Node>> _parseOptions([List<String>? allowValue]) {
+  Map<String, List<Node>> _parseOptions(State state,
+      [List<String>? allowValue]) {
     final Map<String, List<Node>> options = {};
     while (!_reachEnd && !_predict(_closeCurly)) {
       String value = "";
@@ -147,7 +151,7 @@ class ICUParser implements Parser {
       }
       if (_predict(_openCurly)) {
         _take();
-        final metadata = _doParse();
+        final metadata = _doParse(state);
         options[value.trim()] = metadata;
         continue;
       }

@@ -1,3 +1,8 @@
+import 'package:localization_generator/exceptions/invalid_argument_exception.dart';
+import 'package:localization_generator/exceptions/invalid_choice_exception.dart';
+import 'package:localization_generator/exceptions/invalid_option_exception.dart';
+import 'package:localization_generator/exceptions/missing_close_curly_exception.dart';
+import 'package:localization_generator/exceptions/missing_open_curly_exception.dart';
 import 'package:test/test.dart';
 
 import 'package:localization_generator/parser/parser.dart';
@@ -17,11 +22,6 @@ void main() {
     expect(ast[1].type, Type.Argument);
     expect(ast[1].value, "name");
     expect(ast[2].value, "!");
-  });
-
-  test('Test parameter can only start with letter', () {
-    final parser = ICUParser();
-    expect(() => parser.parse("{1foo}"), throwsArgumentError);
   });
 
   test('Test parse support escape', () {
@@ -126,5 +126,39 @@ void main() {
     expect(option0Values[3][3].value, " and ");
     expect(option0Values[3][4].type, Type.HashTag);
     expect(option0Values[3][5].value, " other people to her party.");
+  });
+
+  test('Test argument can only start with letter', () {
+    final parser = ICUParser();
+    expect(() => parser.parse("{1foo}"),
+        throwsA(TypeMatcher<InvalidArgumentException>()));
+  });
+
+  test('Test choice must be one of gender, select or plural', () {
+    final parser = ICUParser();
+    expect(
+        () => parser
+            .parse("{arg, genders, female{female}, male{male}, other{other}}"),
+        throwsA(TypeMatcher<InvalidChoiceException>()));
+  });
+
+  test('Test option must be one of allowed values', () {
+    final parser = ICUParser();
+    expect(
+        () => parser
+            .parse("{arg, gender, female{female}, man{man}, other{other}}"),
+        throwsA(TypeMatcher<InvalidOptionException>()));
+  });
+
+  test('Test open curly must have correspond close curly', () {
+    final parser = ICUParser();
+    expect(() => parser.parse("{foo"),
+        throwsA(TypeMatcher<MissingCloseCurlyException>()));
+  });
+
+  test('Test close curly must have correspond open curly', () {
+    final parser = ICUParser();
+    expect(() => parser.parse("foo}"),
+        throwsA(TypeMatcher<MissingOpenCurlyException>()));
   });
 }

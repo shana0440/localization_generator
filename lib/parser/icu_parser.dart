@@ -1,3 +1,8 @@
+import 'package:localization_generator/exceptions/invalid_argument_exception.dart';
+import 'package:localization_generator/exceptions/invalid_choice_exception.dart';
+import 'package:localization_generator/exceptions/invalid_option_exception.dart';
+import 'package:localization_generator/exceptions/missing_close_curly_exception.dart';
+import 'package:localization_generator/exceptions/missing_open_curly_exception.dart';
 import 'package:localization_generator/parser/parser.dart';
 import 'package:localization_generator/parser/token.dart';
 
@@ -84,7 +89,7 @@ class ICUParser implements Parser {
   Node _parseArgument() {
     String argument = "";
     if (!_predict(_letter)) {
-      throw ArgumentError('Argument can only start with letter');
+      throw InvalidArgumentException();
     }
 
     while (!_reachEnd && !_predict(_closeCurly)) {
@@ -95,7 +100,7 @@ class ICUParser implements Parser {
         // get argument name
         argument += took;
       } else {
-        throw ArgumentError('Argument should compose by letter, _ or digits.');
+        throw InvalidArgumentException();
       }
     }
 
@@ -104,13 +109,13 @@ class ICUParser implements Parser {
       return ArgumentNode(argument);
     }
 
-    throw ArgumentError('Need }');
+    throw MissingCloseCurlyException();
   }
 
   Node _parseSelect() {
     final argument = _takeUntil(_comma);
     if (!_select.isOk(_takeUntil(_comma))) {
-      throw ArgumentError('Only support select, plural, gender');
+      throw InvalidChoiceException();
     }
     final options = _parseOptions(State.Select);
     return SelectNode(argument, options);
@@ -119,7 +124,7 @@ class ICUParser implements Parser {
   Node _parseGender() {
     final argument = _takeUntil(_comma);
     if (!_gender.isOk(_takeUntil(_comma))) {
-      throw ArgumentError('Only support select, plural, gender');
+      throw InvalidChoiceException();
     }
     final options = _parseOptions(State.Gender, ['female', 'male', 'other']);
     return GenderNode(argument, options);
@@ -128,7 +133,7 @@ class ICUParser implements Parser {
   Node _parsePlural() {
     final argument = _takeUntil(_comma);
     if (!_plural.isOk(_takeUntil(_comma))) {
-      throw ArgumentError('Only support select, plural, gender');
+      throw InvalidChoiceException();
     }
     final options = _parseOptions(
       State.Plural,
@@ -147,7 +152,7 @@ class ICUParser implements Parser {
         value += took;
       }
       if (allowValue != null && !allowValue.contains(value.trim())) {
-        throw ArgumentError('$value is not valid option');
+        throw InvalidOptionException(allowValue, value);
       }
       if (_predict(_openCurly)) {
         _take();
@@ -157,7 +162,7 @@ class ICUParser implements Parser {
       }
 
       if (_reachEnd) {
-        throw ArgumentError('Need {');
+        throw MissingOpenCurlyException();
       }
     }
 
@@ -165,7 +170,7 @@ class ICUParser implements Parser {
       _take();
       return options;
     }
-    throw ArgumentError('Need }');
+    throw MissingCloseCurlyException();
   }
 
   Node _or(List<Node Function()> parsers) {

@@ -3,6 +3,12 @@ library localization_generator;
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:localization_generator/exceptions/generate_exception.dart';
+import 'package:localization_generator/exceptions/invalid_argument_exception.dart';
+import 'package:localization_generator/exceptions/invalid_choice_exception.dart';
+import 'package:localization_generator/exceptions/invalid_option_exception.dart';
+import 'package:localization_generator/exceptions/missing_close_curly_exception.dart';
+import 'package:localization_generator/exceptions/missing_open_curly_exception.dart';
 import 'package:localization_generator/main.dart';
 
 main(List<String> args) {
@@ -22,5 +28,10 @@ main(List<String> args) {
   );
   parser.parse(args);
 
-  doGenerate(Directory(input), Directory(output));
+  try {
+    doGenerate(Directory(input), Directory(output));
+  } on GenerateException catch (e) {
+    stderr.writeln(e.toString());
+    exit(1);
+  }
 }

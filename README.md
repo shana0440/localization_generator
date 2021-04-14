@@ -9,6 +9,8 @@ A command tool to generate localization from JSON file.
 Add to your `pubspec.yaml`.
 
 ```yaml
+dependencies:
+  intl: ^0.17.0
 dev_dependencies:
   localization_generator: <last_version>
 ```

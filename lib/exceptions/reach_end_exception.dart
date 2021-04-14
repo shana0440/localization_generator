@@ -1,0 +1,1 @@
+class ReachEndException extends Error {}

@@ -23,9 +23,9 @@ class GenerateException extends Error {
         final typedException = exception as InvalidOptionException;
         return "${key}: ${typedException.option} must be one of the ${typedException.validOptions}";
       case MissingCloseCurlyException:
-        return "${key}: missing {";
-      case MissingOpenCurlyException:
         return "${key}: missing }";
+      case MissingOpenCurlyException:
+        return "${key}: missing {";
       default:
         return "";
     }

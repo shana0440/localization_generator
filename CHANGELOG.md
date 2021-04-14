@@ -1,3 +1,8 @@
+## [1.0.0-dev.2]
+
+- Add MIT license
+- Update dependencies (77aea67)
+
 ## [1.0.0-dev.1]
 
 - Improve error message

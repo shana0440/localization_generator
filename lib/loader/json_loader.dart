@@ -21,7 +21,8 @@ class JSONLoader implements Loader {
         basenameWithoutExtension(it.path),
         json,
       );
-    }).toList();
+    }).toList()
+      ..sort((a, b) => a.locale.compareTo(b.locale));
   }
 
   Map<String, String> _decode(File file) {

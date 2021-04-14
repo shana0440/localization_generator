@@ -65,5 +65,5 @@ class zh_Hant extends Localized {
   @override
   String hello({dynamic name}) => Intl.message("Hello $name");
   @override
-  String price({dynamic currency}) => Intl.message("100 ") + Intl.select(currency, {"TWD": Intl.message("NT"), "other": Intl.message("$")});
+  String price({dynamic currency}) => Intl.message("100 ") + Intl.select(currency, {"TWD": Intl.message("NT"), "other": Intl.message("\$")});
 }

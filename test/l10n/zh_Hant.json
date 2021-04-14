@@ -1,5 +1,5 @@
 {
-    "hi": "Hi",
-    "hello": "Hello {name}",
-    "price": "100 {currency, select, TWD{NT} other{$}}"
+  "hi": "Hi",
+  "hello": "Hello {name}",
+  "price": "100 {currency, select, TWD{NT} other{\\$}}"
 }

@@ -2,17 +2,16 @@ name: Dart CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
     pull_request:
-      branches: [ master ]
+      branches: [master]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
     container:
-      image:  google/dart:latest
+      image: google/dart:latest
 
     steps:
       - uses: actions/checkout@v2

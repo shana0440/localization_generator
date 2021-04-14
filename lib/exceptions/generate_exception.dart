@@ -3,10 +3,11 @@ import 'package:localization_generator/exceptions/parser_exception.dart';
 import 'invalid_argument_exception.dart';
 import 'invalid_choice_exception.dart';
 import 'invalid_option_exception.dart';
+import 'localization_generator_exception.dart';
 import 'missing_close_curly_exception.dart';
 import 'missing_open_curly_exception.dart';
 
-class GenerateException extends Error {
+class GenerateException extends LocalizationGeneratorException {
   final ParserException exception;
   final String key;
 

@@ -4,38 +4,34 @@ A command tool to generate localization from JSON file.
 
 ![Dart CI](https://github.com/shana0440/localization_generator/workflows/Dart%20CI/badge.svg?branch=master)
 
-## Usage
+## Getting Start
 
-create `en.json` and `zh_Hant.json` at l10n folder
+Add to your `pubspec.yaml`.
 
-en.json
-```json
-{
-    "hi": "Hi",
-    "hello": "Hello {name}",
-    "price": "100 {currency, select, TWD{NT} other{\\$}}",
-    "gender": "gender: {gender, gender, female{female} male{male} other{other}}",
-    "reply": "{count, plural, =0{no reply} =1{1 reply} other{# replies}}"
-}
+```yaml
+dev_dependencies:
+  localization_generator: <last_version>
 ```
 
-zh_Hant.json
-```json
-{
-    "hi": "嗨",
-    "hello": "你好 {name}",
-    "price": "100 {currency, select, TWD{台幣} other{\\$}}",
-    "gender": "gender: {gender, gender, female{女} male{男} other{第三性}}",
-    "reply": "{count, plural, =0{沒有回覆} =1{1個回覆} other{#個回覆}}"
-}
+Add translation files to a folder.
+
+```
+l10n
+  +- {languageCode}.json
+  +- {languageCode}-{countryCode}.json
+  +- {languageCode}-{scriptCode}.json
 ```
 
-and run this command
-```
+Run the following command.
+
+```bash
 flutter pub run localization_generator --output=./l10n --input=./l10n
 ```
 
-```
+Configuration app.
+
+```dart
+// Import the generated localization file.
 import 'l10n/localization.dart';
 
 MaterialApp(
@@ -63,3 +59,14 @@ MaterialApp(
   }),
 );
 ```
+
+[Example project](./example)
+
+## MessageFormat
+
+The message pattern is follow the [ICU MessageFormat](https://unicode-org.github.io/icu/userguide/format_parse/messages/).
+
+### Unsupport
+- `offset` of `plural`
+- date
+- number

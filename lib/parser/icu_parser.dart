@@ -7,7 +7,12 @@ import 'package:localization_generator/exceptions/reach_end_exception.dart';
 import 'package:localization_generator/parser/parser.dart';
 import 'package:localization_generator/parser/token.dart';
 
-enum State { Message, Plural, Select, Gender }
+class State {}
+
+class PluralState extends State {
+  String argument;
+  PluralState(this.argument);
+}
 
 class ICUParser implements Parser {
   int _offset = 0;
@@ -28,10 +33,10 @@ class ICUParser implements Parser {
   List<Node> parse(String value) {
     _value = value;
     _offset = 0;
-    return _doParse(State.Message);
+    return _doParse();
   }
 
-  List<Node> _doParse(State state, [TokenType? endAt]) {
+  List<Node> _doParse([State? state, TokenType? endAt]) {
     final List<Node> nodes = [];
     bool isEscaping = false;
 
@@ -72,24 +77,26 @@ class ICUParser implements Parser {
             String choice = _takeUntil([_comma]);
             _take(); // take away comma
             if (_select.isOk(choice)) {
-              final options = _parseOptions(State.Select);
+              final options = _parseOptions();
               nodes.add(SelectNode(argument, options));
             } else if (_plural.isOk(choice)) {
-              final options = _parseOptions(State.Plural, [
-                '=0',
-                '=1',
-                '=2',
-                'zero',
-                'one',
-                'two',
-                'few',
-                'many',
-                'other'
-              ]);
+              final options = _parseOptions(
+                  state: PluralState(argument),
+                  allowValue: [
+                    '=0',
+                    '=1',
+                    '=2',
+                    'zero',
+                    'one',
+                    'two',
+                    'few',
+                    'many',
+                    'other'
+                  ]);
               nodes.add(PluralNode(argument, options));
             } else if (_gender.isOk(choice)) {
               final options =
-                  _parseOptions(State.Gender, ['female', 'male', 'other']);
+                  _parseOptions(allowValue: ['female', 'male', 'other']);
               nodes.add(GenderNode(argument, options));
             } else {
               throw InvalidChoiceException();
@@ -101,11 +108,11 @@ class ICUParser implements Parser {
         if (!_predict(_closeCurly, takeAwayWhenPredicted: true)) {
           throw MissingCloseCurlyException();
         }
-      } else if (state == State.Plural &&
+      } else if (state is PluralState &&
           _predict(_hashtag, takeAwayWhenPredicted: true) &&
           !isEscaping) {
         addMessageNode();
-        nodes.add(HashTagNode());
+        nodes.add(ArgumentNode(state.argument));
       } else {
         _predict(_singleQuote,
             falseWhenReachEnd: true, takeAwayWhenPredicted: true);
@@ -123,8 +130,8 @@ class ICUParser implements Parser {
     return nodes;
   }
 
-  Map<String, List<Node>> _parseOptions(State state,
-      [List<String>? allowValue]) {
+  Map<String, List<Node>> _parseOptions(
+      {State? state, List<String>? allowValue}) {
     final Map<String, List<Node>> options = {};
     while (!_predict(_closeCurly)) {
       String value = _takeUntil([_openCurly]);

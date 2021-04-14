@@ -68,7 +68,7 @@ void main() {
     final values = ast[0].options.values.toList();
     expect(values[0][0].value, "no reply");
     expect(values[1][0].value, "1 reply");
-    expect(values[2][0].type, Type.HashTag);
+    expect(values[2][0].type, Type.Argument);
     expect(values[2][1].value, " replies");
   });
 
@@ -124,7 +124,7 @@ void main() {
     expect(option0Values[3][2].type, Type.Argument);
     expect(option0Values[3][2].value, "guest");
     expect(option0Values[3][3].value, " and ");
-    expect(option0Values[3][4].type, Type.HashTag);
+    expect(option0Values[3][4].type, Type.Argument);
     expect(option0Values[3][5].value, " other people to her party.");
   });
 

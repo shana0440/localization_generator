@@ -1,4 +1,4 @@
-enum Type { Message, Select, Plural, Gender, Argument, HashTag }
+enum Type { Message, Select, Plural, Gender, Argument }
 
 abstract class Node {
   final Type type;
@@ -41,9 +41,5 @@ class GenderNode extends Node {
 }
 
 class ArgumentNode extends Node {
-  ArgumentNode(String? argument) : super(type: Type.Argument, value: argument);
-}
-
-class HashTagNode extends Node {
-  HashTagNode() : super(type: Type.HashTag);
+  ArgumentNode(String argument) : super(type: Type.Argument, value: argument);
 }

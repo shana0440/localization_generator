@@ -18,7 +18,7 @@ class IntlGenerator extends Generator {
     }
   }
 
-  String _convertATS(List<Node> ats, {String? pluralHashTagVariable}) {
+  String _convertATS(List<Node> ats) {
     final List<Node> nodes = [];
     final List<String?> messages = [];
     for (final node in ats) {
@@ -36,8 +36,6 @@ class IntlGenerator extends Generator {
         messages.add(_convertPlural(node));
       } else if (node is ArgumentNode || node is MessageNode) {
         nodes.add(node);
-      } else if (node is HashTagNode) {
-        nodes.add(ArgumentNode(pluralHashTagVariable));
       }
     }
     messages.add(_convertMessage(nodes));
@@ -99,7 +97,6 @@ class IntlGenerator extends Generator {
       options.add(
         'zero: ${_convertATS(
           node.options['=0'] ?? node.options['zero']!,
-          pluralHashTagVariable: node.value,
         )}',
       );
     }
@@ -107,7 +104,6 @@ class IntlGenerator extends Generator {
       options.add(
         'one: ${_convertATS(
           node.options['=1'] ?? node.options['one']!,
-          pluralHashTagVariable: node.value,
         )}',
       );
     }
@@ -115,26 +111,22 @@ class IntlGenerator extends Generator {
       options.add(
         'two: ${_convertATS(
           node.options['=2'] ?? node.options['two']!,
-          pluralHashTagVariable: node.value,
         )}',
       );
     }
     if (node.options.containsKey('few')) {
       options.add('few: ${_convertATS(
         node.options['few']!,
-        pluralHashTagVariable: node.value,
       )}');
     }
     if (node.options.containsKey('many')) {
       options.add('many: ${_convertATS(
         node.options['many']!,
-        pluralHashTagVariable: node.value,
       )}');
     }
     if (node.options.containsKey('other')) {
       options.add('other: ${_convertATS(
         node.options['other']!,
-        pluralHashTagVariable: node.value,
       )}');
     }
     return """Intl.plural(${node.value}, ${options.join(", ")})""";

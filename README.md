@@ -11,6 +11,8 @@ Add to your `pubspec.yaml`.
 ```yaml
 dependencies:
   intl: ^0.17.0
+  flutter_localizations:
+    sdk: flutter
 dev_dependencies:
   localization_generator: <last_version>
 ```
@@ -35,6 +37,7 @@ Configuration app.
 ```dart
 // Import the generated localization file.
 import 'l10n/localization.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 MaterialApp(
   onGenerateTitle: (context) {
@@ -46,7 +49,7 @@ MaterialApp(
   localizationsDelegates: [
     Localized.delegate,
     GlobalMaterialLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate
+    GlobalWidgetsLocalizations.delegate,
   ],
   supportedLocales: Localized.delegate.supportedLocales,
   home: Builder(builder: (context) {
